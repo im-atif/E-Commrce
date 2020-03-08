@@ -23,3 +23,43 @@ $factory->define(App\User::class, function (Faker $faker) {
         'remember_token' => Str::random(10),
     ];
 });
+
+
+$factory->define(App\Category::class, function (Faker $faker) {
+    $name = trim($faker->unique()->sentence(1), '.');
+    $slug = generateSlug($name);
+    
+    return [
+        'name' => $name,
+        'slug' => $slug
+    ];
+});
+
+
+$factory->define(App\Product::class, function (Faker $faker) {
+    $name = trim($faker->unique()->sentence(2), '.');
+    $slug = generateSlug($name);
+    $image = 'assets/uploads/products/' . rand(1, 8) . '.jpg';
+    
+    return [
+        'category_id' => rand(1, 20),
+        'name' => $name,
+        'slug' => $slug,
+        'image' => $image,
+        'price' => $faker->numberBetween(100, 500),
+        'description' => $faker->paragraph(4),
+    ];
+});
+
+
+function generateSlug($string)
+{
+    $string = preg_replace('~[^\pL\d]+~u', '-', $string);
+    $string = iconv('utf-8', 'us-ascii//TRANSLIT', $string);
+    $string = preg_replace('~[^-\w]+~', '', $string);
+    $string = trim($string, '-');
+    $string = preg_replace('~-+~', '-', $string);
+    $string = strtolower($string);
+    
+    return !empty($string) ? $string : false;
+}
