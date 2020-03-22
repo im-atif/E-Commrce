@@ -26,7 +26,7 @@
             <a href="{{ route('product.single', ['product' => $product->slug]) }}">
                 <h3>{{ $product->name }}</h3>
             </a>
-            <p>{{ Str::words($product->description, 21, ' ... ') }}</p>
+            <p>{{ $product->truncate($product->description) }}</p>
             <div class="price_box">
                 <span class="new_price">${{ $product->price }}.00</span>
                 <!-- <span class="old_price">$60.00</span> -->

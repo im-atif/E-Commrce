@@ -3,6 +3,7 @@
 namespace App;
 
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Support\Str;
 
 class Product extends Model
 {
@@ -13,5 +14,10 @@ class Product extends Model
     public function category()
     {
         return $this->belongsTo('App\Category');
+    }
+
+    public function truncate(string $string)
+    {
+        return Str::limit($string, 120, ' ...');
     }
 }
