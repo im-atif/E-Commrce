@@ -26,6 +26,12 @@ Route::get('/shop-list', [
     'as'        =>      'shop.list'
 ]);
 
+Route::get('/help', function(){
+    return view('help', [
+        'title' => 'Support Center'
+    ]);
+})->name('help');
+
 Route::get('/product/{product}', [
     'uses'      =>      'FrontendController@singleProduct',
     'as'        =>      'product.single'
@@ -40,7 +46,12 @@ Route::get('/dashboard', [
 
 Route::resource('categories', 'CategoriesController');
 Route::resource('products', 'ProductsController');
-Route::get('/account', 'HomeController@index')->name('account');
+
+Route::get('/account/dashboard', 'HomeController@index')->name('account');
+Route::get('/account/profile', 'HomeController@profile')->name('profile');
+Route::get('/account/orders', 'HomeController@orders')->name('orders');
+Route::get('/account/wishlist', 'HomeController@wishlist')->name('wishlist');
+Route::get('/account/order/track', 'HomeController@track_orders')->name('order.track');
 
 Route::post('/cart/add', [
     'uses'      =>      'ShoppingController@add_to_cart',
@@ -62,13 +73,19 @@ Route::get('/cart', [
     'as'        =>      'cart'
 ]);
 
-Route::get('/checkout', [
-    'uses'      =>      'ShoppingController@checkout',
-    'as'        =>      'checkout'
-]);
 
 Route::get('/cart/delete/{id}', [
     'uses'      =>      'ShoppingController@cart_item_delete',
     'as'        =>      'cart.delete'
 ]);
+    
 
+Route::get('/checkout', [
+    'uses'      =>      'CheckoutController@index',
+    'as'        =>      'checkout'
+]);
+
+Route::post('/checkout', [
+    'uses'      =>      'CheckoutController@stripe_charge',
+    'as'        =>      'checkout.charge'
+]);

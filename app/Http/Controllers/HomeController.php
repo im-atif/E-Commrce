@@ -23,6 +23,37 @@ class HomeController extends Controller
      */
     public function index()
     {
-        return view('home');
+        // return "hello";
+        return view('account.dashboard', [
+            'title' => 'Dashboard',
+        ]);
+    }
+
+    
+    public function profile(){
+        return view('home', [
+            'title' => 'My Profile'
+        ]);
+    }
+    
+    
+    public function orders(){
+        return view('home', [
+            'title' => 'My Orders'
+        ]);
+    }
+    
+    
+    public function wishlist(){
+        return view('home', [
+            'title' => 'My Wishlist'
+        ]);
+    }
+    
+    
+    public function track_orders(){
+        return view('home', [
+            'title' => 'Track Order'
+        ]);
     }
 }

@@ -86,20 +86,6 @@ class ShoppingController extends Controller
 
 
 
-    public function checkout()
-    {
-        if (Cart::content()->count() <= 0) {
-            Session::flash('info', 'Your cart is empty, nothing to buy do some shopping first.');
-            return redirect()->route('shop');
-        }
-
-        return view('checkout', [
-            'title' => 'Checkout',
-        ]);
-    }
-
-
-
     public function cart_item_delete($id)
     {
         Cart::remove($id);

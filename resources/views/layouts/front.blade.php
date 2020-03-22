@@ -239,7 +239,7 @@
                             <ul class="top_tools">
                                 <li>
                                     <div class="dropdown dropdown-cart">
-                                        <a href="cart.html" class="cart_bt"><strong>{{ Cart::content()->count() }}</strong></a>
+                                        <a href="{{ __('#') }}" class="cart_bt"><strong>{{ Cart::content()->count() }}</strong></a>
                                         <div class="dropdown-menu">
                                             <ul>
                                                 @foreach(Cart::content() as $product)
@@ -276,7 +276,6 @@
                                             </div>
                                         </div>
                                     </div>
-                                    <!-- /dropdown-cart-->
                                 </li>
                                 <li>
                                     <a href="#0" class="wishlist"><span>Wishlist</span></a>
@@ -298,18 +297,33 @@
                                             @endguest
                                             <ul>
                                                 <li>
-                                                    <a href="track-order.html"><i class="ti-truck"></i>Track your Order</a>
+                                                    <a href="{{ route('order.track') }}"><i class="ti-truck"></i>Track your Order</a>
                                                 </li>
                                                 <li>
-                                                    <a href="account.html"><i class="ti-package"></i>My Orders</a>
+                                                    <a href="{{ route('orders') }}"><i class="ti-package"></i>My Orders</a>
                                                 </li>
                                                 <li>
-                                                    <a href="account.html"><i class="ti-user"></i>My Profile</a>
+                                                    <a href="{{ route('profile') }}"><i class="ti-user"></i>My Profile</a>
                                                 </li>
                                                 <li>
-                                                    <a href="help.html"><i class="ti-help-alt"></i>Help and Faq</a>
+                                                    <a href="{{ route('help') }}"><i class="ti-help-alt"></i>Help and Faq</a>
                                                 </li>
                                             </ul>
+
+                                            @if (Auth::check())
+
+                                            <form id="logout-form" action="{{ route('logout') }}" method="POST" style="display: none;">
+                                                @csrf
+                                            </form>
+                                            <br>
+                                            <a href="{{ route('logout') }}" class="btn_1 outline"
+                                                onclick="event.preventDefault();
+                                                document.getElementById('logout-form').submit();">
+                                                {{ __('Logout') }}
+                                            </a>
+
+                                            @endif
+
                                         </div>
                                     </div>
                                     <!-- /dropdown-access-->
